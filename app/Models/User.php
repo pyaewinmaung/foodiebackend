@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\MyUserModel;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -50,5 +51,7 @@ class User extends Authenticatable
     public function recipes()
     {
         return $this->hasMany(Recipe::class);
+
+        // return $this->belongsToMany(Recipe::class,Recipe_Buyer::class);
     }
 }

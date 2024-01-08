@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Instruction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Recipe extends Model
 {
@@ -32,6 +34,16 @@ class Recipe extends Model
     public function instrucion()
     {
         return $this->belongsTo(Instruction::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function instructions()
+    {
+        return $this->hasMany(Instruction::class);
     }
 
 }

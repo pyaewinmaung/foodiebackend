@@ -43,7 +43,7 @@ class RecipeController extends BaseController
 
         $recipe = Recipe::create(array_merge($input, ['user_id' => $userId]));
 
-        return $this->sendResponse($recipe, 200, 'Recipe created successfully.');
+        return $this->sendResponse($recipe, 201, 'Recipe created successfully.');
     }
 
     /**
@@ -95,10 +95,12 @@ class RecipeController extends BaseController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Recipe $recipe)
+    public function destroy(string $id)
     {
+        $recipe = Recipe::find($id);
+
         $recipe->delete();
 
-        return $this->sendResponse([], 200, 'Recipe deleted successfully.');
+        return $this->sendResponse($recipe, 200, 'Recipe deleted successfully.');
     }
 }
