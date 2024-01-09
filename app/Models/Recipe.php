@@ -6,6 +6,7 @@ use App\Models\Instruction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Recipe extends Model
 {
@@ -46,4 +47,8 @@ class Recipe extends Model
         return $this->hasMany(Instruction::class);
     }
 
+    public function users(): MorphToMany
+    {
+        return $this->morphedByMany(User::class, 'recipe_buyers');
+    }
 }
