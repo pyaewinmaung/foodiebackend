@@ -19,9 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [RegisterController::class, 'login']);
-Route::post('/users', [RegisterController::class, 'register']);
+Route::post('/register', [RegisterController::class, 'register']);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
+
+    Route::get('/getuser', [RegisterController::class, 'get_user']);
+    Route::post('/logout', [RegisterController::class, 'logout']);
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);

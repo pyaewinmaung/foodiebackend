@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
-use App\Models\MyUserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -65,5 +64,20 @@ class RegisterController extends BaseController
         else{
             return $this->sendError('Unauthorised.', 401, ['error'=>'Unauthorised']);
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return $this->sendResponse([], 200, 'Logout Successful.');
+
+    }
+
+    public function get_user(Request $request)
+    {
+        $user = Auth::user();
+
+        return $this->sendResponse($user, 200, 'Get User successfully.');
     }
 }
