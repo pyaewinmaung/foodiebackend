@@ -60,8 +60,14 @@ class User extends Authenticatable
         return $this->hasMany(Favourite::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function recipes(): MorphToMany
     {
         return $this->morphedByMany(Recipe::class, 'recipe_buyers');
     }
+
 }

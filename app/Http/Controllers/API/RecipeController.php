@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,7 +52,7 @@ class RecipeController extends BaseController
      */
     public function show(string $id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::with('user', 'category', 'comments')->find($id);
 
         if (is_null($recipe)) {
             return $this->sendError('Recipe not found.');
@@ -106,8 +107,10 @@ class RecipeController extends BaseController
 
     public function get_recipes(Request $request)
     {
-        $recipes = Recipe::all();
+        $recipes = Recipe::with('category', 'user')->get();
 
-        return $this->sendResponse($recipes, 200, 'Get All Recipes successfully.');
+        $data = RecipeResource::collection($recipes);
+
+        return $this->sendResponse($data, 200, 'Get All Recipes successfully.');
     }
 }
