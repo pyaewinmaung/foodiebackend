@@ -22,6 +22,11 @@ class Recipe extends Model
         'type',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -40,10 +45,5 @@ class Recipe extends Model
     public function instructions()
     {
         return $this->hasMany(Instruction::class);
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
     }
 }
