@@ -49,12 +49,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // public function recipes()
-    // {
-    //     return $this->hasMany(Recipe::class);
-
-    // }
-
     public function favourites()
     {
         return $this->hasMany(Favourite::class);
@@ -65,9 +59,9 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function recipes(): MorphToMany
+    public function recipes()
     {
-        return $this->morphedByMany(Recipe::class, 'recipe_buyers');
+        return $this->belongsToMany(Recipe::class);
     }
 
 }

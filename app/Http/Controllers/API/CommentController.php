@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +50,12 @@ class CommentController extends BaseController
      */
     public function show(string $id)
     {
-        $comments = Comment::where('recipe_id', $id)->get();
+        // $data = Comment::where('user','recipe', $id)->get();
+        $data = Comment::where('user_id', $id)
+                   ->orWhere('recipe_id', $id)
+                   ->get();
+
+        $comments = CommentResource::collection($data);
 
         if ($comments->isEmpty()) {
             return $this->sendError('Comments not found.');
