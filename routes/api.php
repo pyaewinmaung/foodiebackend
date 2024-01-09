@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [RegisterController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
 
+Route::get('/get_recipes',[RecipeController::class,'get_recipes']);
+
 Route::group(['middleware' => 'auth:sanctum'], function (){
 
     Route::get('/getuser', [RegisterController::class, 'get_user']);

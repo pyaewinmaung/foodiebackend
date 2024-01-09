@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\MyUserModel;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -48,15 +49,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
+    // public function recipes()
+    // {
+    //     return $this->hasMany(Recipe::class);
 
-        // return $this->belongsToMany(Recipe::class,Recipe_Buyer::class);
-    }
+    // }
 
     public function favourites()
     {
         return $this->hasMany(Favourite::class);
+    }
+
+    public function recipes(): MorphToMany
+    {
+        return $this->morphedByMany(Recipe::class, 'recipe_buyers');
     }
 }

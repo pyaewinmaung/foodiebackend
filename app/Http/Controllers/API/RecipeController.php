@@ -103,4 +103,11 @@ class RecipeController extends BaseController
 
         return $this->sendResponse($recipe, 200, 'Recipe deleted successfully.');
     }
+
+    public function get_recipes(Request $request)
+    {
+        $recipes = Recipe::all();
+
+        return $this->sendResponse($recipes, 200, 'Get All Recipes successfully.');
+    }
 }
