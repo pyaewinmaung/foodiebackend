@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/logout', [RegisterController::class, 'logout']);
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/categories', CategoryController::class);
-    Route::get('/recipe-buyer/{userId}', 'API\RecipeBuyerController@getRecipeBuyer');
+    Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeBuyer']);
 
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);
