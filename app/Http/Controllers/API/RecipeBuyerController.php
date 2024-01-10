@@ -3,22 +3,29 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RecipeBuyerResource;
 use App\Models\Recipe;
 use App\Models\RecipeBuyer;
 use Illuminate\Http\Request;
 
 class RecipeBuyerController extends BaseController
 {
-    public function getRecipeBuyer(String $userId)
+    public function getRecipeBuyer(String $userId, String $recipeId)
     {
-        $freeRecipes = RecipeBuyer::where('user_id', $userId)
-        ->where('type', 'free')
-        ->with('recipe')
-        ->get()
-        ->pluck('recipe');
+        $recipeDetails = RecipeBuyer::where('user_id', $userId)
+            ->where('recipe_id', $recipeId)
+            ->whereHas('recipe', function ($query) {
+                $query->where('type', 'free');
+            })
+            ->with(['recipe', 'user'])
+            ->first();
 
-        return $this->sendResponse($freeRecipes, 200, 'Recipe Buyer retrieved successfully.');
+        if (!$recipeDetails) {
+            return $this->sendError('Recipe details not found.',[],404);
+        }
 
-        // return response()->json(['free_recipes' => $freeRecipes], 200);
+        $data = new RecipeBuyerResource($recipeDetails);
+
+        return $this->sendResponse($data, 200, 'Recipe details found.');
     }
 }
