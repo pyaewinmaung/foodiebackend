@@ -46,4 +46,9 @@ class Recipe extends Model
     {
         return $this->hasMany(Instruction::class);
     }
+
+    public function buyers()
+    {
+        return $this->hasMany(RecipeBuyer::class);
+    }
 }

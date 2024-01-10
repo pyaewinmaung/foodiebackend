@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\InstructionController;
+use App\Http\Controllers\API\RecipeBuyerController;
 use App\Http\Controllers\API\RecipeController;
 use App\Http\Controllers\API\RegisterController;
 use Illuminate\Http\Request;
@@ -28,6 +30,9 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/getuser', [RegisterController::class, 'get_user']);
     Route::post('/logout', [RegisterController::class, 'logout']);
     Route::apiResource('/recipes', RecipeController::class);
+    Route::apiResource('/categories', CategoryController::class);
+    Route::get('/recipe-buyer/{userId}', 'API\RecipeBuyerController@getRecipeBuyer');
+
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);
 });
