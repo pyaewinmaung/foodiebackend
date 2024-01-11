@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\InstructionController;
 use App\Http\Controllers\API\RecipeBuyerController;
 use App\Http\Controllers\API\RecipeController;
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/categories', CategoryController::class);
     Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeBuyer']);
-
+    Route::apiResource('/image', ImageController::class);
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);
 });
