@@ -50,19 +50,18 @@ class CommentController extends BaseController
      */
     public function show(string $id)
     {
-        // $data = Comment::where('user','recipe', $id)->get();
-        $data = Comment::where('user_id', $id)
-                   ->orWhere('recipe_id', $id)
-                   ->get();
+        $comments = Comment::where('recipe_id', $id)
+                ->with('recipe','user')
+                ->get();
 
-        $comments = CommentResource::collection($data);
+        $commentResources = CommentResource::collection($comments);
 
-        if ($comments->isEmpty()) {
+        if ($commentResources->isEmpty()) {
             return $this->sendError('Comments not found.');
         }
 
-        return $this->sendResponse($comments, 200, 'Comments retrieved successfully.');
-    }
+        return $this->sendResponse($commentResources, 200, 'Comments retrieved successfully.');
+        }
 
 
     /**
