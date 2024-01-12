@@ -13,8 +13,8 @@ class Instruction extends Model
         'instruction'
     ];
 
-    public function recipe()
-    {
-        return $this->belongsTo(Recipe::class);
-    }
+    // public function recipe()
+    // {
+    //     return $this->belongsTo(Recipe::class);
+    // }
 }

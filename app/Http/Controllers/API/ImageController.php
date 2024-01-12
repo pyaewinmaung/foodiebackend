@@ -60,30 +60,9 @@ class ImageController extends BaseController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id, Image $imageModel)
+    public function update(Request $request, int $id)
     {
-        $image = $imageModel->find($id);
-
-        if (!$image) {
-            return $this->sendError('Image not found.', [], 404);
-        }
-
-        $request->validate([
-            'new_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
-        $oldImagePath = $image->path;
-
-        // Store the new image
-        $newImagePath = $request->file('new_path')->store('images', 'public');
-
-        // Update the database record
-        $image->update(['path' => $newImagePath]);
-
-        // Delete the old image
-        Storage::disk('public')->delete($oldImagePath);
-
-        return $this->sendResponse($newImagePath, 200, 'Image Path Updated successfully.');
+        //
     }
 
     /**
