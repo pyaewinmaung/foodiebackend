@@ -10,6 +10,22 @@ use Illuminate\Http\Request;
 
 class RecipeBuyerController extends BaseController
 {
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'recipe_id' => 'required|exists:recipes,id',
+        ]);
+
+        $recipeBuyer = RecipeBuyer::create([
+            'user_id' => $request->user_id,
+            'recipe_id' => $request->recipe_id,
+        ]);
+        
+        return $this->sendResponse($recipeBuyer, 201, 'Recipe buyer stored successfully');
+        // return response()->json(['recipeBuyer' => $recipeBuyer, 'message' => 'Recipe buyer stored successfully'], 201);
+    }
+
     public function getRecipeBuyer(String $userId, String $recipeId)
     {
         $recipeDetails = RecipeBuyer::where('user_id', $userId)

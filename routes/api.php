@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/categories', CategoryController::class);
     Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeBuyer']);
+    Route::post('/free-recipe/store',[RecipeBuyerController::class,'store']);
     Route::apiResource('/image', ImageController::class);
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);

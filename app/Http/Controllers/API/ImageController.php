@@ -23,21 +23,22 @@ class ImageController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $path = $request->file('image')->store('images', 'public');
+        $path = $request->file('path')->store('images', 'public');
 
-        if(!$path) {
-            return $this->sendError('Image path not found.', [], 404);
+        if (!$path) {
+            return $this->sendError('Failed to store the image.', [], 500);
         }
 
-        $image = Image::create(['path' => $path]); // Change this to 'path'
-        if(!$image) {
-            return $this->sendError('Image path not found.', [], 404);
-        }
-        return response()->json(['image' => $image, 'message' => 'Image uploaded successfully'], 201);
+        $image = Image::create(['path' => $path]);
+
+        $imageUrl = asset('storage/' . $path); // Get the public URL of the stored image
+
+        return $this->sendResponse(['image' => $image, 'image_url' => $imageUrl], 201, 'Image uploaded successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -50,7 +51,7 @@ class ImageController extends BaseController
             return $this->sendError('Image not found.');
         }
 
-        return $this->sendResponse($path, 200, 'Image Path retrieved successfully.');
+        return $this->sendResponse($path,200, 'Image Path retrieved successfully.');
     }
 
     /**
@@ -58,7 +59,24 @@ class ImageController extends BaseController
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $oldImagePath = Image::findOrFail($id)->path;
+        dd($oldImagePath);
+
+        // Store the new image
+        $newImagePath = $request->file('image')->store('images', 'public');
+
+        // Update the database record
+        Image::findOrFail($id)->update(['path' => $newImagePath]);
+
+        // Delete the old image
+        Storage::disk('public')->delete($oldImagePath);
+
+        return $this->sendResponse($newImagePath, 200, 'Image Path Updated successfully.');
+        // return redirect()->back()->with('success', 'Image updated successfully');
     }
 
     /**
