@@ -21,12 +21,11 @@ class RecipeResource extends JsonResource
             'category_id' => $this->category_id,
             'title' => $this->title,
             'description' => $this->description,
-            'image' => $this->image,
+            'image' => asset($this->image)?? null,
             'amount' => $this->amout,
             'type' => $this->type,
             'category_name' => $this->category->category,
             'user_name' => $this->user->name,
-
         ];
     }
 }

@@ -33,7 +33,7 @@ class RecipeController extends BaseController
             'category_id' => 'required',
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'amount' => 'required|integer',
             'type' => 'required|string',
         ]);
@@ -42,7 +42,10 @@ class RecipeController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
-        $image = $request->file('image')->store('images', 'public');
+        $image = 'images/'.time().'.'.$request->file('image')->extension();
+        $request->file('image')->move(public_path('images'),$image);
+
+        // $image = $request->file('image')->store('images', 'public');
 
         $recipe = Recipe::create(array_merge($input, ['user_id' => $userId],['image' => $image]));
 
@@ -74,7 +77,7 @@ class RecipeController extends BaseController
            'category_id' => 'required',
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg',
             'amount' => 'required|integer',
             'type' => 'required|string',
         ]);
