@@ -33,11 +33,11 @@ class RegisterController extends BaseController
 
         $input = $request->all();
 
-        // $path = asset('profile/'.time().'.'.$request->file('image')->extension());
-        // $request->file('image')->move(public_path('profile'),$path);
+        $path = 'profile/'.time().'.'.$request->file('image')->extension();
+        $request->file('image')->move(public_path('profile'),$path);
 
         $input['password'] = bcrypt($input['password']);
-        // $input['image'] = $path;
+        $input['image'] = $path;
 
         $user = User::create($input);
 
@@ -45,7 +45,7 @@ class RegisterController extends BaseController
         $success['email'] = $user->email;
         $success['address'] = $user->address;
         $success['phone'] = $user->phone;
-        // $success['image'] = $user->image;
+        $success['image'] = $user->image;
 
         return $this->sendResponse($success, 200, 'User register successfully.');
     }

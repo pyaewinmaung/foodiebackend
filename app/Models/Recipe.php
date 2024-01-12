@@ -17,6 +17,7 @@ class Recipe extends Model
         'category_id',
         'title',
         'description',
+        'instruction',
         'image',
         'amount',
         'type',
@@ -42,10 +43,10 @@ class Recipe extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function instructions()
-    {
-        return $this->hasMany(Instruction::class);
-    }
+    // public function instructions()
+    // {
+    //     return $this->hasMany(Instruction::class);
+    // }
 
     public function buyers()
     {
