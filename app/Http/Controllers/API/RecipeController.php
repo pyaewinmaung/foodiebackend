@@ -35,7 +35,7 @@ class RecipeController extends BaseController
             'description' => 'required|string',
             'instruction' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg',
-            'amount' => 'required|integer',
+            'amount' => 'integer',
             'type' => 'required|string',
         ]);
 
@@ -79,8 +79,8 @@ class RecipeController extends BaseController
             'title' => 'required|string',
             'description' => 'required|string',
             'instruction' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
-            'amount' => 'required|integer',
+            'image' => 'nullable',
+            'amount' => 'integer',
             'type' => 'required|string',
         ]);
 
@@ -91,8 +91,8 @@ class RecipeController extends BaseController
         $recipe->category_id = $input['category_id'];
         $recipe->title = $input['title'];
         $recipe->description = $input['description'];
-        $recipe->instrucion = $input['instruction'];
-        $recipe->image = $input['image'];
+        $recipe->instruction = $input['instruction'];
+        // $recipe->image = $input['image'];
         $recipe->amount = $input['amount'];
         $recipe->type = $input['type'];
 
