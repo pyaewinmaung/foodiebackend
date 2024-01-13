@@ -91,7 +91,7 @@ class RecipeController extends BaseController
         $recipe->category_id = $input['category_id'];
         $recipe->title = $input['title'];
         $recipe->description = $input['description'];
-        $recipe->instrucion = $input['instruction'];
+        $recipe->instruction = $input['instruction'];
         // $recipe->image = $input['image'];
         $recipe->amount = $input['amount'];
         $recipe->type = $input['type'];

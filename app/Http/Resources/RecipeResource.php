@@ -27,6 +27,8 @@ class RecipeResource extends JsonResource
             'type' => $this->type,
             'category_name' => $this->category->category,
             'user_name' => $this->user->name,
+            'created_at' => $this->created_at,
+            'udated_at' => $this->updated_at,
         ];
     }
 }
