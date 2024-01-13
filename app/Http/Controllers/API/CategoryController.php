@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class CategoryController extends BaseController
@@ -48,15 +49,15 @@ class CategoryController extends BaseController
     {
         if ($id) {
             // Retrieve a specific category based on the provided $id
-            $category = Category::find($id);
+            $category = Category::with('recipes')->find($id);
 
             if (!$category) {
                 return $this->sendError('Category not found.', 404);
             }
 
-            $categoryResource = new CategoryResource($category);
+            // $categoryResource = new CategoryResource($category);
 
-            return $this->sendResponse($categoryResource, 200, 'Category retrieved successfully.');
+            return $this->sendResponse($category, 200, 'Category retrieved successfully.');
         }
     }
 
