@@ -16,7 +16,7 @@ class RecipeResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'id' => $this->id,
+            'recipe_id' => $this->id,
             'user_id' => $this->user_id,
             'category_id' => $this->category_id,
             'title' => $this->title,

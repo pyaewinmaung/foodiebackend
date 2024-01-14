@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/free-recipe/store',[RecipeBuyerController::class,'store']);
     Route::get('/free-recipe/show/{userId}',[RecipeBuyerController::class,'show']);
 
+    Route::get('/getbuy/{userId}',[RecipeBuyerController::class,'getBuy']);
+
     Route::apiResource('/image', ImageController::class);
     Route::apiResource('/comments', CommentController::class);
     Route::apiResource('/instructions', InstructionController::class);
