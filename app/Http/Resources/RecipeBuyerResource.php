@@ -17,9 +17,11 @@ class RecipeBuyerResource extends JsonResource
         return [
             'user_id' => $this->user_id,
             'user_name' => $this->user->name,
-            'recipe_id' => $this->recipe->id,
-            'recipe_title' => $this->recipe->title,
-            'type'=>$this->recipe->type,
+            // 'recipe_id' => $this->recipe->id,
+            // 'recipe_title' => $this->recipe->title,
+            // 'type'=>$this->recipe->type,
+            'recipe' => new RecipeResource($this->whenLoaded('recipe')),
+
         ];
     }
 }

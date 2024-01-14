@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::post('/logout', [RegisterController::class, 'logout']);
     Route::apiResource('/recipes', RecipeController::class);
     Route::apiResource('/categories', CategoryController::class);
-    Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeBuyer']);
+    Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeDetails']);
     Route::post('/free-recipe/store',[RecipeBuyerController::class,'store']);
     Route::apiResource('/image', ImageController::class);
     Route::apiResource('/comments', CommentController::class);
