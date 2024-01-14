@@ -7,6 +7,7 @@ use App\Http\Resources\RecipeBuyerResource;
 use App\Models\Recipe;
 use App\Models\RecipeBuyer;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\String_;
 
 class RecipeBuyerController extends BaseController
 {
@@ -44,7 +45,7 @@ class RecipeBuyerController extends BaseController
     //     return $this->sendResponse($data, 200, 'Recipe details found.');
     // }
 
-    public function getRecipeDetails(int $userId, int $recipeId)
+    public function getRecipeDetails(String $userId, String $recipeId)
     {
         $buyer = RecipeBuyer::where(['user_id' => $userId, 'recipe_id' => $recipeId])
             // ->whereHas('recipe', function ($query) {
@@ -60,6 +61,20 @@ class RecipeBuyerController extends BaseController
         $data = new RecipeBuyerResource($buyer);
 
         return $this->sendResponse($data, 200, 'Recipe details found.');
+    }
+
+    public function show(String $id) {
+        $buyrecipes = RecipeBuyer::where('user_id', $id)
+                ->with('recipe')
+                ->get();
+                if (!$buyrecipes) {
+                    return response()->json(['error' => 'Buy Recipes not found.'], 404);
+                }
+
+                $data = new RecipeBuyerResource($buyrecipes);
+
+                return $this->sendResponse($data, 200, 'Recipe details found.');
+
     }
 
 }

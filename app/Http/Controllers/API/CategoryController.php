@@ -21,9 +21,9 @@ class CategoryController extends BaseController
             return $this->sendError('Categories not found.');
         }
 
-        $categoryResources = CategoryResource::collection($categories);
+        // $categoryResources = CategoryResource::collection($categories);
 
-        return $this->sendResponse($categoryResources, 200, 'Categories retrieved successfully.');
+        return $this->sendResponse($categories, 200, 'Categories retrieved successfully.');
     }
 
     /**
