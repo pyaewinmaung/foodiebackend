@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/getuser', [RegisterController::class, 'get_user']);
     Route::post('/logout', [RegisterController::class, 'logout']);
     Route::apiResource('/recipes', RecipeController::class);
+    Route::post('/search',[RecipeController::class,'search_recipes']);
+
     Route::apiResource('/categories', CategoryController::class);
     Route::get('/free-recipe/{userId}/{recipeId}',[RecipeBuyerController::class,'getRecipeDetails']);
     Route::post('/free-recipe/store',[RecipeBuyerController::class,'store']);
