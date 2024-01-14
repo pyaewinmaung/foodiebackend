@@ -17,7 +17,7 @@ class CommentResource extends JsonResource
         return [
             'recipe_id' => $this->recipe->id,
             'user_id' => $this->user->id,
-            'user-name' => $this->user->name,
+            'user_name' => $this->user->name,
             'recipe_name' => $this->recipe->title,
             'image' => $this->user->image,
             'comment_id' => $this->id,
