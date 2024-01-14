@@ -6,6 +6,7 @@ use App\Models\Recipe;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RecipeResource;
+use App\Models\RecipeBuyer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 

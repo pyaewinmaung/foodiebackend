@@ -63,18 +63,16 @@ class RecipeBuyerController extends BaseController
         return $this->sendResponse($data, 200, 'Recipe details found.');
     }
 
-    public function show(String $id) {
-        $buyrecipes = RecipeBuyer::where('user_id', $id)
-                ->with('recipe')
-                ->get();
-                if (!$buyrecipes) {
-                    return response()->json(['error' => 'Buy Recipes not found.'], 404);
-                }
+    public function getBuy(string $userId)
+    {
+        $buyrecipes = RecipeBuyer::where('user_id', $userId)->with('recipe')->get();
 
-                $data = new RecipeBuyerResource($buyrecipes);
+        if ($buyrecipes->isEmpty()) {
+            return response()->json(['error' => 'Buy Recipes not found.'], 404);
+        }
 
-                return $this->sendResponse($data, 200, 'Recipe details found.');
+        $data = RecipeBuyerResource::collection($buyrecipes);
 
+        return $this->sendResponse($data, 200, 'BuyRecipe details found.');
     }
-
 }
