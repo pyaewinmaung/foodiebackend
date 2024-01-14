@@ -122,4 +122,12 @@ class RecipeController extends BaseController
 
         return $this->sendResponse($data, 200, 'Get All Recipes successfully.');
     }
+
+    public function search_recipes(Request $request)
+    {
+        $searchTerm = $request->input('title');
+        $recipe = Recipe::where( 'title', 'like','%'.$searchTerm .'%')->get();
+
+        return $this->sendResponse($recipe, 200, 'Search Recipes successfully.');
+    }
 }
