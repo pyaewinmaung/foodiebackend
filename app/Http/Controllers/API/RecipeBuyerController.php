@@ -21,27 +21,45 @@ class RecipeBuyerController extends BaseController
             'user_id' => $request->user_id,
             'recipe_id' => $request->recipe_id,
         ]);
-        
+
         return $this->sendResponse($recipeBuyer, 201, 'Recipe buyer stored successfully');
-        // return response()->json(['recipeBuyer' => $recipeBuyer, 'message' => 'Recipe buyer stored successfully'], 201);
     }
 
-    public function getRecipeBuyer(String $userId, String $recipeId)
+    // public function getRecipeBuyer(String $userId, String $recipeId)
+    // {
+    //     $recipeDetails = RecipeBuyer::where('user_id', $userId)
+    //         ->where('recipe_id', $recipeId)
+    //         ->whereHas('recipe', function ($query) {
+    //             $query->where('type', 'free');
+    //         })
+    //         ->with(['recipe', 'user'])
+    //         ->first();
+
+    //     if (!$recipeDetails) {
+    //         return $this->sendError('Recipe details not found.',[],404);
+    //     }
+
+    //     $data = new RecipeBuyerResource($recipeDetails);
+
+    //     return $this->sendResponse($data, 200, 'Recipe details found.');
+    // }
+
+    public function getRecipeDetails(int $userId, int $recipeId)
     {
-        $recipeDetails = RecipeBuyer::where('user_id', $userId)
-            ->where('recipe_id', $recipeId)
-            ->whereHas('recipe', function ($query) {
-                $query->where('type', 'free');
-            })
-            ->with(['recipe', 'user'])
+        $buyer = RecipeBuyer::where(['user_id' => $userId, 'recipe_id' => $recipeId])
+            // ->whereHas('recipe', function ($query) {
+            //     $query->where('type', 'free');
+            // })
+            ->with('recipe','user')
             ->first();
 
-        if (!$recipeDetails) {
-            return $this->sendError('Recipe details not found.',[],404);
+        if (!$buyer) {
+            return response()->json(['error' => 'Buy Recipe not found.'], 404);
         }
 
-        $data = new RecipeBuyerResource($recipeDetails);
+        $data = new RecipeBuyerResource($buyer);
 
         return $this->sendResponse($data, 200, 'Recipe details found.');
     }
+
 }

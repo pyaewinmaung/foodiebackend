@@ -24,7 +24,7 @@ class RecipeResource extends JsonResource
             'instruction'=> $this->instruction,
             'image' => asset($this->image)?? null,
             'amount' => $this->amout,
-            'type' => $this->type,
+            'type' => ($this->type)?? null,
             'category_name' => $this->category->category,
             'user_name' => $this->user->name,
             'created_at' => $this->created_at,
