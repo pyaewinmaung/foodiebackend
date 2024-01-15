@@ -36,6 +36,8 @@ class RegisterController extends BaseController
         $path = 'profile/'.time().'.'.$request->file('image')->extension();
         $request->file('image')->move(public_path('profile'),$path);
 
+        // $request->file('image')->store('profile', $path);
+
         $input['password'] = bcrypt($input['password']);
         $input['image'] = $path;
 
