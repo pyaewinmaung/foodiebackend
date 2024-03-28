@@ -26,25 +26,6 @@ class RecipeBuyerController extends BaseController
         return $this->sendResponse($recipeBuyer, 201, 'Recipe buyer stored successfully');
     }
 
-    // public function getRecipeBuyer(String $userId, String $recipeId)
-    // {
-    //     $recipeDetails = RecipeBuyer::where('user_id', $userId)
-    //         ->where('recipe_id', $recipeId)
-    //         ->whereHas('recipe', function ($query) {
-    //             $query->where('type', 'free');
-    //         })
-    //         ->with(['recipe', 'user'])
-    //         ->first();
-
-    //     if (!$recipeDetails) {
-    //         return $this->sendError('Recipe details not found.',[],404);
-    //     }
-
-    //     $data = new RecipeBuyerResource($recipeDetails);
-
-    //     return $this->sendResponse($data, 200, 'Recipe details found.');
-    // }
-
     public function getRecipeDetails(String $userId, String $recipeId)
     {
         $buyer = RecipeBuyer::where(['user_id' => $userId, 'recipe_id' => $recipeId])

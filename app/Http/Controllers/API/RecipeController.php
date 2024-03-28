@@ -135,4 +135,17 @@ class RecipeController extends BaseController
 
         return $this->sendResponse($data, 200, 'Search Recipes successfully.');
     }
+
+    public function getRecipesByUser($userId)
+    {
+        $recipes = Recipe::where('user_id', $userId)->get();
+
+        if ($recipes->isEmpty()) {
+            return response()->json(['error' => 'Recipes not found.'], 404);
+        }
+
+        $data = RecipeResource::collection($recipes);
+
+        return $this->sendResponse($data, 200, 'Recipes Retrive Successfull.');
+    }
 }

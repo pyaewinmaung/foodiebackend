@@ -23,7 +23,7 @@ class ImageController extends BaseController
     public function store(Request $request)
     {
         $request->validate([
-            'path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'path' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         // $path = $request->file('path')->store('images', 'public');
