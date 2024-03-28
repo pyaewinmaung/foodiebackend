@@ -40,16 +40,16 @@ class RecipeController extends BaseController
             'type' => 'required|string',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
-        $image = 'images/'.time().'.'.$request->file('image')->extension();
-        $request->file('image')->move(public_path('images'),$image);
+        $image = 'images/' . time() . '.' . $request->file('image')->extension();
+        $request->file('image')->move(public_path('images'), $image);
 
         // $image = $request->file('image')->store('images', 'public');
 
-        $recipe = Recipe::create(array_merge($input, ['user_id' => $userId],['image' => $image]));
+        $recipe = Recipe::create(array_merge($input, ['user_id' => $userId], ['image' => $image]));
 
         return $this->sendResponse($recipe, 201, 'Recipe created successfully.');
     }
@@ -76,7 +76,7 @@ class RecipeController extends BaseController
         $input = $request->all();
 
         $validator = Validator::make($input, [
-           'category_id' => 'required',
+            'category_id' => 'required',
             'title' => 'required|string',
             'description' => 'required|string',
             'instruction' => 'required|string',
@@ -85,7 +85,7 @@ class RecipeController extends BaseController
             'type' => 'required|string',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors(), 422);
         }
 
@@ -128,8 +128,8 @@ class RecipeController extends BaseController
         $searchTerm = $request->input('title');
 
         $recipes = Recipe::where('title', 'like', '%' . $searchTerm . '%')
-                ->orWhere('description', 'like', '%' . $searchTerm . '%')
-                ->get();
+            ->orWhere('description', 'like', '%' . $searchTerm . '%')
+            ->get();
 
         $data = RecipeResource::collection($recipes);
 
